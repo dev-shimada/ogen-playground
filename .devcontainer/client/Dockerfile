@@ -6,7 +6,6 @@ ARG TARGETOS
 ARG TARGETARCH
 ARG PYTHON_VERSION=3.13.2
 ENV LESSCHARSET=utf-8
-ENV PATH=$PATH:/root/.local/bin
 
 WORKDIR /workspace
 
@@ -20,22 +19,8 @@ go install -v github.com/cweill/gotests/gotests@latest
 go install -v github.com/goreleaser/goreleaser/v2@latest
 curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin latest
 npm i -g @anthropic-ai/claude-code
-
 # ogen
 go install -v github.com/ogen-go/ogen/cmd/ogen@latest
 EOF
-
-# Python setup
-RUN <<EOF
-pyenv install $PYTHON_VERSION
-pyenv global $PYTHON_VERSION
-echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-EOF
-
-# RUN <<EOF
-# pipx install openapi-python-client poetry
-# openapi-python-client --install-completion
-# EOF
 
 COPY . /workspace

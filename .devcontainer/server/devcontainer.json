@@ -1,0 +1,22 @@
+{
+    "name": "ogen-playground-server",
+    "dockerComposeFile": [
+        "../compose.yaml",
+        "compose.yaml"
+    ],
+    "service": "server",
+    "workspaceFolder": "/workspace/server",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.Go",
+                "GitHub.copilot"
+            ]
+        }
+    },
+    "mounts": [
+        "source=${localWorkspaceFolder}/,target=/workspace,type=bind",
+        "source=${env:HOME}/.claude,target=/root/.claude,type=bind"
+    ],
+    "remoteUser": "root"
+}
