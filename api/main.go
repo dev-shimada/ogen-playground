@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"sync"
 
-	petstore "github.com/dev-shimada/ogen-playground/server/petstore"
+	petstore "github.com/dev-shimada/ogen-playground/api/petstore"
 )
 
 type petsService struct {

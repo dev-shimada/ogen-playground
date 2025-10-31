@@ -1,11 +1,11 @@
 {
-    "name": "ogen-playground-client",
-    "build": {
-        "context": ".",
-        "dockerfile": "Dockerfile",
-        "target": "vscode"
-    },
-    "workspaceFolder": "/workspace",
+    "name": "ogen-playground-client-python",
+    "dockerComposeFile": [
+        "../compose.yaml",
+        "compose.yaml"
+    ],
+    "service": "client-python",
+    "workspaceFolder": "/workspace/client-python",
     "customizations": {
         "vscode": {
             "extensions": [

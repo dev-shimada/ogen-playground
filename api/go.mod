@@ -1,4 +1,4 @@
-module github.com/dev-shimada/ogen-playground/server
+module github.com/dev-shimada/ogen-playground/api
 
 go 1.25.3
 

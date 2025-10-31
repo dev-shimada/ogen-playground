@@ -1,0 +1,8 @@
+services:
+  client-python:
+    build:
+      context: ..
+      dockerfile: .devcontainer/client-python/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity

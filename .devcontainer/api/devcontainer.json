@@ -1,11 +1,11 @@
 {
-    "name": "ogen-playground-server",
+    "name": "ogen-playground-api",
     "dockerComposeFile": [
         "../compose.yaml",
         "compose.yaml"
     ],
-    "service": "server",
-    "workspaceFolder": "/workspace/server",
+    "service": "api",
+    "workspaceFolder": "/workspace/api",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -15,7 +15,6 @@
         }
     },
     "mounts": [
-        "source=${localWorkspaceFolder}/,target=/workspace,type=bind",
         "source=${env:HOME}/.claude,target=/root/.claude,type=bind"
     ],
     "remoteUser": "root"
