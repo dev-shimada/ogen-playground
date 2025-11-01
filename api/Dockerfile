@@ -10,7 +10,6 @@ WORKDIR /workspace
 RUN  <<EOF
 # grpc_health_probe
 go install github.com/grpc-ecosystem/grpc-health-probe@latest
-CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o bin/app main.go
 EOF
 
 COPY go.mod /workspace
@@ -18,6 +17,7 @@ COPY go.sum /workspace
 RUN go mod download
 COPY petstore /workspace/petstore
 COPY main.go /workspace
+RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o bin/app main.go
 
 
 FROM --platform=$BUILDPLATFORM gcr.io/distroless/base-debian12:latest

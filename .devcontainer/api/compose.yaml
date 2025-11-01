@@ -1,5 +1,6 @@
 services:
   api:
+    image: ogen-playground-api:devcontainer
     build:
       context: ..
       dockerfile: .devcontainer/api/Dockerfile

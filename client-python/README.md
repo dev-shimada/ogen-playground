@@ -6,3 +6,5 @@
 ```bash
 openapi-python-client generate --path ../petstore.yml --output-path petstore
 ```
+
+python -m pip install --user pipx && python -m pipx ensurepath

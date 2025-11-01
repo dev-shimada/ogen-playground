@@ -1,7 +1,8 @@
 services:
   api:
+    image: ogen-playground-api
     build:
-      context: .
-      dockerfile: api/Dockerfile
+      context: ../api
+      dockerfile: ../api/Dockerfile
     ports:
       - "8080:8080"
