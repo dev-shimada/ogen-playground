@@ -93,7 +93,7 @@ func main() {
 		httpSwagger.URL("/openapi.yaml"),
 	))
 
-	mux.Handle("/", srv)
+	mux.Handle("/v3/", http.StripPrefix("/v3", srv))
 
 	log.Println("Server started at :8080")
 	if err := http.ListenAndServe(":8080", mux); err != nil {
