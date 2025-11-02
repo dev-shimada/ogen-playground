@@ -3,26 +3,40 @@ from typing import Any, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.pet import Pet
-from ...types import Response
+from typing import cast
+
 
 
 def _get_kwargs(
     pet_id: int,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/pet/{pet_id}",
+        "url": "/pet/{pet_id}".format(pet_id=pet_id,),
     }
 
+
     return _kwargs
+
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Pet | None:
     if response.status_code == 200:
         response_200 = Pet.from_dict(response.json())
+
+
 
         return response_200
 
@@ -49,8 +63,9 @@ def sync_detailed(
     pet_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[Any | Pet]:
-    """Find pet by ID
+    """ Find pet by ID
 
      Returns a single pet
 
@@ -63,10 +78,12 @@ def sync_detailed(
 
     Returns:
         Response[Any | Pet]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         pet_id=pet_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -75,13 +92,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     pet_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Any | Pet | None:
-    """Find pet by ID
+    """ Find pet by ID
 
      Returns a single pet
 
@@ -94,20 +111,22 @@ def sync(
 
     Returns:
         Any | Pet
-    """
+     """
+
 
     return sync_detailed(
         pet_id=pet_id,
-        client=client,
-    ).parsed
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     pet_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[Any | Pet]:
-    """Find pet by ID
+    """ Find pet by ID
 
      Returns a single pet
 
@@ -120,23 +139,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | Pet]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         pet_id=pet_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     pet_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Any | Pet | None:
-    """Find pet by ID
+    """ Find pet by ID
 
      Returns a single pet
 
@@ -149,11 +172,11 @@ async def asyncio(
 
     Returns:
         Any | Pet
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            pet_id=pet_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        pet_id=pet_id,
+client=client,
+
+    )).parsed

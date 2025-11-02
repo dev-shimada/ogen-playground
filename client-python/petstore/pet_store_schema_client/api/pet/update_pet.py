@@ -1,12 +1,15 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.pet_status import PetStatus
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+
 
 
 def _get_kwargs(
@@ -14,7 +17,12 @@ def _get_kwargs(
     *,
     name: str | Unset = UNSET,
     status: PetStatus | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["name"] = name
@@ -25,15 +33,19 @@ def _get_kwargs(
 
     params["status"] = json_status
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/pet/{pet_id}",
+        "url": "/pet/{pet_id}".format(pet_id=pet_id,),
         "params": params,
     }
 
+
     return _kwargs
+
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | None:
@@ -61,8 +73,9 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     name: str | Unset = UNSET,
     status: PetStatus | Unset = UNSET,
+
 ) -> Response[Any]:
-    """Updates a pet in the store
+    """ Updates a pet in the store
 
     Args:
         pet_id (int):
@@ -75,12 +88,14 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         pet_id=pet_id,
-        name=name,
-        status=status,
+name=name,
+status=status,
+
     )
 
     response = client.get_httpx_client().request(
@@ -96,8 +111,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     name: str | Unset = UNSET,
     status: PetStatus | Unset = UNSET,
+
 ) -> Response[Any]:
-    """Updates a pet in the store
+    """ Updates a pet in the store
 
     Args:
         pet_id (int):
@@ -110,14 +126,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         pet_id=pet_id,
-        name=name,
-        status=status,
+name=name,
+status=status,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
+

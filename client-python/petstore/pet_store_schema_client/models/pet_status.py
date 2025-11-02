@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class PetStatus(str, Enum):
     AVAILABLE = "available"
     PENDING = "pending"

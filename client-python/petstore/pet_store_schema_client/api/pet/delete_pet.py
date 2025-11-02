@@ -1,22 +1,33 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...types import Response
+from ...types import Response, UNSET
+from ... import errors
+
+
 
 
 def _get_kwargs(
     pet_id: int,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": f"/pet/{pet_id}",
+        "url": "/pet/{pet_id}".format(pet_id=pet_id,),
     }
 
+
     return _kwargs
+
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | None:
@@ -42,8 +53,9 @@ def sync_detailed(
     pet_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[Any]:
-    """Deletes a pet
+    """ Deletes a pet
 
     Args:
         pet_id (int):
@@ -54,10 +66,12 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         pet_id=pet_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -71,8 +85,9 @@ async def asyncio_detailed(
     pet_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[Any]:
-    """Deletes a pet
+    """ Deletes a pet
 
     Args:
         pet_id (int):
@@ -83,12 +98,17 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         pet_id=pet_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
+

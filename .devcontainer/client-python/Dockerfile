@@ -10,7 +10,7 @@ WORKDIR /workspace/client-python
 
 RUN  <<EOF
 apt-get update && apt-get install -y vim git unzip less bash-completion jq npm pipx
-pipx install uv
+pipx install uv openapi-python-client
 npm i -g @anthropic-ai/claude-code
 # bash completions
 echo "source /usr/share/bash-completion/completions/git" >> ~/.bashrc

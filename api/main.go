@@ -4,14 +4,15 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 
 	petstore "github.com/dev-shimada/ogen-playground/api/petstore"
+	httpSwagger "github.com/swaggo/http-swagger/v2"
 )
 
 type petsService struct {
 	pets map[int64]petstore.Pet
-	id   int64
 	mux  sync.Mutex
 }
 
@@ -19,8 +20,10 @@ func (p *petsService) AddPet(ctx context.Context, req *petstore.Pet) (*petstore.
 	p.mux.Lock()
 	defer p.mux.Unlock()
 
-	p.pets[p.id] = *req
-	p.id++
+	// リクエストで指定されたIDを使用
+	if id, ok := req.ID.Get(); ok {
+		p.pets[id] = *req
+	}
 	return req, nil
 }
 
@@ -73,6 +76,23 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("OK"))
 	})
+
+	// Serve OpenAPI specification file
+	mux.HandleFunc("/openapi.yaml", func(w http.ResponseWriter, r *http.Request) {
+		data, err := os.ReadFile("petstore.yaml")
+		if err != nil {
+			http.Error(w, "Failed to read OpenAPI spec", http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "application/x-yaml")
+		w.Write(data)
+	})
+
+	// Serve Swagger UI
+	mux.Handle("/docs/", httpSwagger.Handler(
+		httpSwagger.URL("/openapi.yaml"),
+	))
+
 	mux.Handle("/", srv)
 
 	log.Println("Server started at :8080")

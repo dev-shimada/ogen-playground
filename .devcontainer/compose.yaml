@@ -1,6 +1,6 @@
 services:
   api:
-    image: ogen-playground-api
+    image: ogen-playground-api-background
     build:
       context: ../api
       dockerfile: ../api/Dockerfile
